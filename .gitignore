@@ -1,1 +1,22 @@
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
 build/
+
+# Coverage
+coverage/
+
+# IDE files
+*.iml
+.idea/
+.vscode/
+devtools_options.yaml
+
+# Android
+.gradle/
+**/android/.gradle/
+**/android/local.properties

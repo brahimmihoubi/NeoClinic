@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../models/message_model.dart';
+import 'package:neoclinic/models/message_model.dart';
 
 class ChatDetailController extends GetxController {
   var messages = <MessageModel>[

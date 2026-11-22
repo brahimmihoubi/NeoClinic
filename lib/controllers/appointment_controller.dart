@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import '../models/appointment_model.dart';
-import '../services/appointment_service.dart';
+import 'package:neoclinic/models/appointment_model.dart';
+import 'package:neoclinic/services/appointment_service.dart';
 
 class AppointmentController extends GetxController {
   final AppointmentService _service = AppointmentService();

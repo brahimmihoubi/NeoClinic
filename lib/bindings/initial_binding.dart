@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:neoclinic/controllers/emergencycontroller.dart';
+import 'package:neoclinic/controllers/homepagecontroller.dart';
 import 'package:neoclinic/controllers/medicationcontroller.dart';
 import 'package:neoclinic/controllers/profilecontroller.dart';
-import '../controllers/homepagecontroller.dart';
 
 class InitialBindings extends Bindings {
   @override

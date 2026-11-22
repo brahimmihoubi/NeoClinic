@@ -1,7 +1,8 @@
-import 'package:get/get.dart';
 import 'dart:async';
-import 'package:neoclinic/services/storage_services.dart';
+
+import 'package:get/get.dart';
 import 'package:neoclinic/routes/app_routes.dart';
+import 'package:neoclinic/services/storage_services.dart';
 
 class SplashController extends GetxController {
   final StorageService _storage = StorageService(); // ✅ THIS LINE IS REQUIRED

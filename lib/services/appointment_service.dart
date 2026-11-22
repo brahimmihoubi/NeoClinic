@@ -1,28 +1,20 @@
-import '../models/appointment_model.dart';
+import 'package:neoclinic/models/appointment_model.dart';
+import 'package:neoclinic/services/api_service.dart';
 
 class AppointmentService {
+  final ApiService _api = ApiService();
+
   Future<List<AppointmentModel>> fetchAppointments() async {
-    await Future.delayed(Duration(seconds: 1));
-    return [
-      AppointmentModel(
-        id: '1',
-        doctorName: 'Dr. Smith',
-        dateTime: DateTime.now().add(Duration(days: 2)),
-        notes: 'Annual checkup',
-        isUpcoming: true,
-      ),
-      AppointmentModel(
-        id: '2',
-        doctorName: 'Dr. Lee',
-        dateTime: DateTime.now().subtract(Duration(days: 3)),
-        notes: 'Follow-up visit',
-        isUpcoming: false,
-      ),
-    ];
+    return await _api.fetchAppointments();
   }
 
-  Future<void> bookAppointment(AppointmentModel appointment) async {
-    await Future.delayed(Duration(seconds: 1));
-    // Simulate booking logic
+  Future<bool> bookAppointment(AppointmentModel appointment) async {
+    // Default to doctor 2 if not selected
+    final doctorId = appointment.doctorId ?? 2;
+    return await _api.bookAppointment(
+      doctorId: doctorId,
+      date: appointment.dateTime,
+      notes: appointment.notes,
+    );
   }
 }

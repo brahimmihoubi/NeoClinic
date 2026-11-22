@@ -1,23 +1,33 @@
 import 'package:get/get.dart';
 import 'package:neoclinic/models/medicalrecords_model.dart';
+import 'package:neoclinic/services/api_service.dart';
 
 class MedicalRecordsController extends GetxController {
+  final ApiService _apiService = ApiService();
+
   var records = <MedicalRecord>[].obs;
   var isLoading = false.obs;
   var searchQuery = ''.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    fetchRecords();
+  }
+
   List<MedicalRecord> get filteredRecords => records
-      .where((record) => record.title.toLowerCase().contains(searchQuery.value.toLowerCase()))
+      .where((record) => record.title.toLowerCase().contains(searchQuery.value.toLowerCase()) ||
+                         record.content.toLowerCase().contains(searchQuery.value.toLowerCase()))
       .toList();
 
   void fetchRecords() async {
     isLoading.value = true;
-    await Future.delayed(Duration(seconds: 1));
-    records.value = [
-      MedicalRecord(title: 'Blood Test', date: DateTime.now(), type: 'Lab Result', content: 'Normal values'),
-      MedicalRecord(title: 'X-Ray Chest', date: DateTime.now().subtract(Duration(days: 3)), type: 'Imaging', content: 'Clear lungs'),
-    ];
-    isLoading.value = false;
+    try {
+      final list = await _apiService.fetchMedicalRecords();
+      records.value = list;
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   void addRecord(MedicalRecord record) {

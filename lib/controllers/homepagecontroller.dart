@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import '../services/api_service.dart';
+import 'package:neoclinic/services/api_service.dart';
 
 class HomePageController extends GetxController {
-  final api = ApiService();
+  final ApiService api = ApiService();
 
   var loading = false.obs;
   var appointments = <String>[].obs;
@@ -21,8 +21,14 @@ class HomePageController extends GetxController {
   void loadAllData() async {
     loading.value = true;
     try {
-      appointments.value = await api.fetchUpcomingAppointments();
-      // Similarly fill other sections...
+      final appts = await api.fetchUpcomingAppointments();
+      appointments.value = appts;
+
+      final recs = await api.fetchMedicalRecords();
+      records.value = recs.map((r) => '${r.title} — ${r.type}').toList();
+
+      final msgs = await api.fetchMessages();
+      messages.value = msgs.map((m) => m.content).toList();
     } catch (e) {
       error.value = 'Failed to load data';
     } finally {
@@ -31,7 +37,6 @@ class HomePageController extends GetxController {
   }
 
   void onSectionTap(String section) {
-    // Navigate to detail pages, e.g.:
     Get.toNamed('/$section');
   }
 }
